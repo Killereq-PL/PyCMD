@@ -1,4 +1,4 @@
-class susObject:
+class cmdObject:
     def __init__(self):
         print("susCMD initialized")
         print("input 'help' to see all commands \n")
@@ -43,16 +43,16 @@ program <filename> (enters program mode)
                     i -= 1
                     continue
 
-sus = susObject()
+cmd = cmdObject()
 while True:
-    a = str(input("> "))
+    a = input("> "))
     if "echo" in a:
         b = a.replace("echo ", "")
-        sus.echo(b)
+        cmd.echo(b)
     if "exit" in a:
         break
     if "help" in a:
-        sus.help()
+        cmd.help()
     if "program" in a:
         b = a.replace("program ", "")
-        sus.program(b)
+        cmd.program(b)
