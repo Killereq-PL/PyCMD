@@ -13,7 +13,7 @@ program <filename> (enters program mode)
 }""")
     def program(self, filename: str) -> None:
         print("program mode enabled ("+filename+")")
-        fn = filename+".sus"
+        fn = filename+".pycmd"
         try:
             file = open(fn, 'r')
         except IOError:
