@@ -7,3 +7,5 @@ echo test
 delay 1000
 echo test2
 ```
+
+# Commands
