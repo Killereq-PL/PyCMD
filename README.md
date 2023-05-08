@@ -13,7 +13,12 @@ echo test2
 # Commands
 
 ```
+# TERMINAL COMMANDS
 echo <string>
 exit
 program <filename>
+
+# PROGRAMMING COMMANDS
+echo <string>
+delay <miliseconds>
 ```
