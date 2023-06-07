@@ -1,3 +1,4 @@
+from time import sleep
 version = "0.1"
 class cmdObject:
     def __init__(self):
@@ -16,14 +17,17 @@ program <filename> (enters program mode)
         fn = filename+".pycmd"
         print("("+fn+")")
         try:
-            file = open(fn, 'r')
+            file = open(fn, 'r+')
         except:
             file = open(fn, 'w')
-        file.mode = "r+"
+            file.close()
+            file = open(fn, 'r+')
         if file.read() != "":
+            file.seek(0)
             print("Program contents:")
             print(file.read())
             print("\n")
+            file.seek(0)
             lines = file.read().splitlines()
         else:
             lines = []
@@ -38,26 +42,35 @@ program <filename> (enters program mode)
                 i += 1
                 cl = input(str(i)+" ")
                 try:
-                    if cl in cmds[cmds.index(cl)]:
-                        if "finish" in cl:
-                            print("Save file?")
-                            s = input("(Y/N) ")
-                            if "Y" in s:
-                                """
-                                {}
-                                """.format("\n".join(lines))
-                                file.write()
-                            break
-                        else:
-                            lines.append(cl)
+                    if "finish" in cl:
+                        print("Save file?")
+                        s = input("(Y/N) ")
+                        if "Y" in s:
+                            """
+                            {}
+                            """.format("\n".join(lines))
+                            file.seek(0)
+                            file.write('\n'.join([i for i in lines]))
+                            file.close()
+                        break
+                    else:
+                        lines.append(cl)
                 except ValueError:
                     print("ERROR: Command does not exist.")
                     i -= 1
                     continue
         elif "modify" in mode:
-            l = mode.replace("modify ")
+            l = int(mode.replace("modify "))
+            modLine = input(l, " ")
             
-
+        elif "run" in mode:
+            for line in lines:
+                if "echo" in line:
+                    b = line.replace("echo ", "")
+                    self.echo(b)
+                elif "delay" in line:
+                    b = line.replace("delay ", "")
+                    sleep(int(b)/1000)
 
 cmd = cmdObject()
 while True:
