@@ -1,8 +1,9 @@
 from time import sleep
-version = "0.1"
+author = "Killereq_PL"
+version = 0.1
 class cmdObject:
     def __init__(self):
-        print("\nPyCMD version", version)
+        print("\nPyCMD version", version, "by", author)
         print("Input 'help' to see all commands. \n")
     def echo(self, arg1: str) -> None:
         print(arg1)
@@ -60,17 +61,30 @@ program <filename> (enters program mode)
                     i -= 1
                     continue
         elif "modify" in mode:
-            l = int(mode.replace("modify "))
-            modLine = input(l, " ")
+            l = int(mode.replace("modify ", ""))
+            modLine = input(str(l)+" ")
+            lines[l-1] = modLine
             
         elif "run" in mode:
+            variables = {}
             for line in lines:
                 if "echo" in line:
                     b = line.replace("echo ", "")
+                    if b in variables:
+                    	b = variables[b]
                     self.echo(b)
                 elif "delay" in line:
                     b = line.replace("delay ", "")
+                    if b in variables:
+                    	b = variables[b]
                     sleep(int(b)/1000)
+                elif " = " in line:
+                	b = line.split(" = ")
+                	try:
+                		b[1] = int(b[1])
+                	except:
+                		pass
+                	variables.update({b[0]:b[1]})
 
 cmd = cmdObject()
 while True:
