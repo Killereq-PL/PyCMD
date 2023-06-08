@@ -27,7 +27,7 @@ program <filename> (enters program mode)
             file.seek(0)
             print("Program contents:")
             print(file.read())
-            print("\n")
+            print("")
             file.seek(0)
             lines = file.read().splitlines()
         else:
@@ -88,8 +88,10 @@ program <filename> (enters program mode)
                     b = line.replace("wait_for_input ", "", 1)
                     variables.update({b:input()})
                 elif "if" in line:
-                    b = line.replace("if ", "", 1).split(" ", 2)
-                    print(b)
+                    b = line.replace("if ", "", 1)
+                    c = b.split(" ", 2)
+                    command = b.split(": ")[1]
+                    print(command)
             sleep(1)
             return "restart"
         
