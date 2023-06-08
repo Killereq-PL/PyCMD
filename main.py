@@ -60,31 +60,41 @@ program <filename> (enters program mode)
                     print("ERROR: Command does not exist.")
                     i -= 1
                     continue
+            return "restart"
+
         elif "modify" in mode:
             l = int(mode.replace("modify ", ""))
             modLine = input(str(l)+" ")
             lines[l-1] = modLine
+            return "restart"
             
         elif "run" in mode:
             variables = {}
             for line in lines:
                 if "echo" in line:
-                    b = line.replace("echo ", "")
+                    b = line.replace("echo ", "", 1)
                     if b in variables:
                     	b = variables[b]
                     self.echo(b)
                 elif "delay" in line:
-                    b = line.replace("delay ", "")
+                    b = line.replace("delay ", "", 1)
                     if b in variables:
                     	b = variables[b]
                     sleep(int(b)/1000)
-                elif " = " in line:
-                	b = line.split(" = ")
-                	try:
-                		b[1] = int(b[1])
-                	except:
-                		pass
-                	variables.update({b[0]:b[1]})
+                elif "var" in line:
+                    b = line.replace("var ", "", 1).split(" = ")
+                    variables.update({b[0]:b[1]})
+                elif "wait_for_input" in line:
+                    b = line.replace("wait_for_input ", "", 1)
+                    variables.update({b:input()})
+                elif "if" in line:
+                    b = line.replace("if ", "", 1).split(" ", 2)
+                    print(b)
+            sleep(1)
+            return "restart"
+        
+        else:
+            return "cancel"
 
 cmd = cmdObject()
 while True:
@@ -98,6 +108,11 @@ while True:
         cmd.help()
     elif "program" in a:
         b = a.replace("program ", "")
-        cmd.program(b)
+        while True:
+            if cmd.program(b) == "restart":
+                print("\n\n")
+                continue
+            else:
+                break
     else:
         print("ERROR: Command does not exist.")    

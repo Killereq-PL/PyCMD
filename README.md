@@ -19,8 +19,11 @@ echo test2
 echo <string>
 exit
 program <filename>
+```
 
+```
 # PROGRAMMING COMMANDS
 echo <string>
 delay <miliseconds>
+wait_for_input <output variable name>
 ```
