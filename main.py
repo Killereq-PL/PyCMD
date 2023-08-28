@@ -12,9 +12,9 @@ class cmdObject:
         print(arg1)
         
     def clear(self):
-	    _ = call('clear' if os.name == 'posix' else 'cls')
-	    print("\nPyCMD version", version, "by", author)
-	    print("Input 'help' to see all commands. \n")
+        _ = call('clear' if os.name == 'posix' else 'cls')
+        print("\nPyCMD version", version, "by", author)
+        print("Input 'help' to see all commands. \n")
 
     def help(self):
         print("""commands:
@@ -84,12 +84,12 @@ clear
                 if "echo" in line:
                     b = line.replace("echo ", "", 1)
                     if b in variables:
-                    	b = variables[b]
+                        b = variables[b]
                     self.echo(b)
                 elif "delay" in line:
                     b = line.replace("delay ", "", 1)
                     if b in variables:
-                    	b = variables[b]
+                        b = variables[b]
                     sleep(int(b)/1000)
                 elif "var" in line:
                     b = line.replace("var ", "", 1).split(" = ")
@@ -127,6 +127,6 @@ while True:
             else:
                 break
     elif "clear" in a:
-    	cmd.clear()
+        cmd.clear()
     else:
         print("ERROR: Command does not exist.")    
