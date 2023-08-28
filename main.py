@@ -1,18 +1,28 @@
 from time import sleep
+from subprocess import call
+import os
+
 author = "Killereq_PL"
-version = 0.1
+version = 0.3
 class cmdObject:
     def __init__(self):
         print("\nPyCMD version", version, "by", author)
         print("Input 'help' to see all commands. \n")
     def echo(self, arg1: str) -> None:
         print(arg1)
+        
+    def clear(self):
+	    _ = call('clear' if os.name == 'posix' else 'cls')
+	    print("\nPyCMD version", version, "by", author)
+	    print("Input 'help' to see all commands. \n")
+
     def help(self):
         print("""commands:
 help (shows all commands),
 echo <string>,
 exit,
-program <filename> (enters program mode)
+program <filename> (enters program mode),
+clear
 \n""")
     def program(self, filename: str) -> None:
         fn = filename+".pycmd"
@@ -116,5 +126,7 @@ while True:
                 continue
             else:
                 break
+    elif "clear" in a:
+    	cmd.clear()
     else:
         print("ERROR: Command does not exist.")    
