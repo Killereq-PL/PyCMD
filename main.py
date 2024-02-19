@@ -1,5 +1,6 @@
 from time import sleep
 from subprocess import call
+from glob import glob
 import os
 
 author = "Killereq_PL"
@@ -22,7 +23,8 @@ help (shows all commands),
 echo <string>,
 exit,
 program <filename> (enters program mode),
-clear
+clear,
+list programs
 \n""")
     def program(self, filename: str) -> None:
         fn = filename+".pycmd"
@@ -128,5 +130,9 @@ while True:
                 break
     elif "clear" in a:
         cmd.clear()
+    elif "list programs" in a:
+        directory = os.getcwd()
+        files = glob(os.path.join(directory, '*.pycmd'))
+        print(files)
     else:
         print("ERROR: Command does not exist.")    
